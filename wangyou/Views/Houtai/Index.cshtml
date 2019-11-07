@@ -1,0 +1,56 @@
+﻿@model IEnumerable<wangyou.Models.bk_users>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/bootstrap.min.js"></script>
+
+
+
+<table class="table table-striped table-hover table-bordered text-center">
+    <tr class="thead-light">
+        <th style="text-align: center;">
+            用户编号
+        </th>
+        <th style="text-align: center;">
+            用户姓名
+        </th>
+        <th style="text-align: center;">
+            用户密码
+        </th>
+        <th style="text-align: center;">
+            用户邮箱
+        </th>
+        <th style="text-align: center;">
+            操作
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.userid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u_pwd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.u_email)
+            </td>
+            <td>
+                @Html.ActionLink("添加", "Create")
+                @Html.ActionLink("修改", "Edit", new { id = item.userid }) |
+                @Html.ActionLink("详情", "Details", new { id = item.userid }) |
+                @Html.ActionLink("删除", "Delete", new { id = item.userid })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,99 @@
+﻿@model wangyou.Models.bk_users
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>后台登录</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/Content/css/base.css" rel="stylesheet" />
+    <link href="~/Content/css/index.css" rel="stylesheet" />
+    <link href="~/Content/css/m.css" rel="stylesheet" />
+    <link href="~/Content/css/login.css" rel="stylesheet" type="text/css" media="all" />
+    <script>
+        window.onload = function () {
+            var oH2 = document.getElementsByTagName("h2")[0];
+            var oUl = document.getElementsByTagName("ul")[0];
+            oH2.onclick = function () {
+                var style = oUl.style;
+                style.display = style.display == "block" ? "none" : "block";
+                oH2.className = style.display == "block" ? "open" : ""
+            }
+        }
+    </script>
+</head>
+<body>
+    <style>
+
+        input::-webkit-input-placeholder {
+            color: #999;
+            -webkit-transition: color.5s;
+        }
+
+        input:focus::-webkit-input-placeholder, input:hover::-webkit-input-placeholder {
+            color: #c2c2c2;
+            -webkit-transition: color.5s;
+        } 
+    </style>
+
+    <header>
+        <div class="tophead">
+            <div class="logo">忘忧<a href="/">博客</a></div>
+            <div id="mnav">
+                <h2><span class="navicon"></span></h2>
+                <ul>
+                    <li>@Html.ActionLink("首页", "index", "Home")</li>
+                    <li>@Html.ActionLink("每日分享", "meiri", "info")</li>
+                    <li>@Html.ActionLink("相册", "xiangce", "info")</li>
+                    <li>@Html.ActionLink("发布文章", "edit", "info")</li>
+                    <li>@Html.ActionLink("登录", "Login", "Account")</li>
+                    <li><a href="about.html">关于我</a></li>
+
+                </ul>
+            </div>
+            <nav class="topnav" id="topnav">
+                <ul>
+                    <li>@Html.ActionLink("首页", "index", "Home")</li>
+                    <li>@Html.ActionLink("每日分享", "meiri", "info")</li>
+                    <li>@Html.ActionLink("相册", "xiangce", "info")</li>
+                    <li>@Html.ActionLink("发布文章", "edit", "info")</li>
+                    <li>@Html.ActionLink("立即注册", "Create", "Account")</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    @using (Html.BeginForm())
+    {
+        <!-- main -->
+        <div class="main">
+            <h1>
+               登录忘忧博客
+            </h1>
+            <form>
+
+                @Html.EditorFor(u => u.u_email,new {placeholder="请输入邮箱！" })
+                @Html.ValidationMessageFor(u => u.u_email)
+                @Html.EditorFor(u => u.u_pwd, new { placeholder = "请输入密码！" })
+                @Html.ValidationMessageFor(u => u.u_pwd)
+
+                <input id="btnOK" type="submit" value="登录">
+
+
+                @Html.ValidationSummary(true)
+            </form>
+        </div>
+        <div class="footer">
+            <p>
+                &copy 2016 Welcome Login Form. All rights reserved
+            </p>
+        </div>
+        <!-- //main -->
+    }
+</body>
+</html>
+

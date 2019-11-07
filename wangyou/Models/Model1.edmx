@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WangYouBKModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bk_users">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="u_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_pwd" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WanZhangType">
+          <Key>
+            <PropertyRef Name="WenZhangTypeID" />
+          </Key>
+          <Property Name="WenZhangTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WenZhangTypeNmae" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WenZhang">
+          <Key>
+            <PropertyRef Name="wenzhangID" />
+          </Key>
+          <Property Name="wenzhangID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wenzhangBiaoTI" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="wenzhangHTML" Type="varchar(max)" />
+          <Property Name="wenzhangContent" Type="varchar(max)" Nullable="false" />
+          <Property Name="wenzhangImg" Type="varchar(max)" />
+          <Property Name="wenzhangTypeID" Type="int" Nullable="false" />
+          <Property Name="wenzhangDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_WenZhang_WanZhangType">
+          <End Role="WanZhangType" Type="Self.WanZhangType" Multiplicity="1" />
+          <End Role="WenZhang" Type="Self.WenZhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WanZhangType">
+              <PropertyRef Name="WenZhangTypeID" />
+            </Principal>
+            <Dependent Role="WenZhang">
+              <PropertyRef Name="wenzhangTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WangYouBKModelStoreContainer">
+          <EntitySet Name="bk_users" EntityType="Self.bk_users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WanZhangType" EntityType="Self.WanZhangType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WenZhang" EntityType="Self.WenZhang" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_WenZhang_WanZhangType" Association="Self.FK_WenZhang_WanZhangType">
+            <End Role="WanZhangType" EntitySet="WanZhangType" />
+            <End Role="WenZhang" EntitySet="WenZhang" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WangYouBKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bk_users">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_pwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="u_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WanZhangType">
+          <Key>
+            <PropertyRef Name="WenZhangTypeID" />
+          </Key>
+          <Property Name="WenZhangTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WenZhangTypeNmae" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WenZhang" Relationship="Self.FK_WenZhang_WanZhangType" FromRole="WanZhangType" ToRole="WenZhang" />
+        </EntityType>
+        <EntityType Name="WenZhang">
+          <Key>
+            <PropertyRef Name="wenzhangID" />
+          </Key>
+          <Property Name="wenzhangID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wenzhangBiaoTI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="wenzhangContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="wenzhangImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="wenzhangTypeID" Type="Int32" Nullable="false" />
+          <Property Name="wenzhangDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="WanZhangType" Relationship="Self.FK_WenZhang_WanZhangType" FromRole="WenZhang" ToRole="WanZhangType" />
+          <Property Name="wenzhangHTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_WenZhang_WanZhangType">
+          <End Role="WanZhangType" Type="Self.WanZhangType" Multiplicity="1" />
+          <End Role="WenZhang" Type="Self.WenZhang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WanZhangType">
+              <PropertyRef Name="WenZhangTypeID" />
+            </Principal>
+            <Dependent Role="WenZhang">
+              <PropertyRef Name="wenzhangTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WangYouBKEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bk_users" EntityType="Self.bk_users" />
+          <EntitySet Name="WanZhangType" EntityType="Self.WanZhangType" />
+          <EntitySet Name="WenZhang" EntityType="Self.WenZhang" />
+          <AssociationSet Name="FK_WenZhang_WanZhangType" Association="Self.FK_WenZhang_WanZhangType">
+            <End Role="WanZhangType" EntitySet="WanZhangType" />
+            <End Role="WenZhang" EntitySet="WenZhang" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WangYouBKModelStoreContainer" CdmEntityContainer="WangYouBKEntities">
+          <EntitySetMapping Name="bk_users">
+            <EntityTypeMapping TypeName="WangYouBKModel.bk_users">
+              <MappingFragment StoreEntitySet="bk_users">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_pwd" ColumnName="u_pwd" />
+                <ScalarProperty Name="u_email" ColumnName="u_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WanZhangType">
+            <EntityTypeMapping TypeName="WangYouBKModel.WanZhangType">
+              <MappingFragment StoreEntitySet="WanZhangType">
+                <ScalarProperty Name="WenZhangTypeID" ColumnName="WenZhangTypeID" />
+                <ScalarProperty Name="WenZhangTypeNmae" ColumnName="WenZhangTypeNmae" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WenZhang">
+            <EntityTypeMapping TypeName="WangYouBKModel.WenZhang">
+              <MappingFragment StoreEntitySet="WenZhang">
+                <ScalarProperty Name="wenzhangHTML" ColumnName="wenzhangHTML" />
+                <ScalarProperty Name="wenzhangID" ColumnName="wenzhangID" />
+                <ScalarProperty Name="wenzhangBiaoTI" ColumnName="wenzhangBiaoTI" />
+                <ScalarProperty Name="wenzhangContent" ColumnName="wenzhangContent" />
+                <ScalarProperty Name="wenzhangImg" ColumnName="wenzhangImg" />
+                <ScalarProperty Name="wenzhangTypeID" ColumnName="wenzhangTypeID" />
+                <ScalarProperty Name="wenzhangDateTime" ColumnName="wenzhangDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

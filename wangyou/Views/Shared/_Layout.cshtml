@@ -1,0 +1,216 @@
+﻿@model wangyou.Models.viewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="gb2312">
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="个人博客,忘忧博客,个人博客模板,忘忧" />
+    <meta name="description" content="忘忧博客，忘忧博客让你忘记忧愁" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+    <link href="~/Content/css/base.css" rel="stylesheet" />
+    <link href="~/Content/css/index.css" rel="stylesheet" />
+    <link href="~/Content/css/m.css" rel="stylesheet" />
+    <!--[if lt IE 9]>
+    <script src="js/modernizr.js"></script>
+    <![endif]-->
+
+
+    <script>
+        window.onload = function () {
+            var oH2 = document.getElementsByTagName("h2")[0];
+            var oUl = document.getElementsByTagName("ul")[0];
+            oH2.onclick = function () {
+                var style = oUl.style;
+                style.display = style.display == "block" ? "none" : "block";
+                oH2.className = style.display == "block" ? "open" : ""
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="tophead">
+            <div class="logo">忘忧<a href="/">博客</a></div>
+            <div id="mnav">
+                <h2><span class="navicon"></span></h2>
+                <ul>
+                    <li>@Html.ActionLink("首页", "index", "Home")</li>
+                    <li>@Html.ActionLink("每日分享", "meiri", "info")</li>
+                    <li>@Html.ActionLink("相册", "xiangce", "info")</li>
+                    <li>@Html.ActionLink("发布文章", "edit", "info")</li>
+                    @{
+                        if (User.Identity.Name == null)
+                        {
+                            <li>@Html.ActionLink("登录", "Login", "Account")</li>
+
+                        }
+                        <li>@Html.ActionLink("注销", "zx", "Account")</li>
+                    }
+
+
+                    <li><a href="about.html">关于我</a></li>
+
+                </ul>
+            </div>
+            <nav class="topnav" id="topnav">
+                <ul>
+                    <li>@Html.ActionLink("首页", "index", "Home")</li>
+                    <li>@Html.ActionLink("每日分享", "meiri", "info")</li>
+                    <li>@Html.ActionLink("相册", "xiangce", "info")</li>
+                    <li>@Html.ActionLink("发布文章", "edit", "info")</li>
+                    @{
+                        if (User.Identity.Name == "")
+                        {
+                            <li>@Html.ActionLink("登录", "Login", "Account")</li>
+
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("注销", "zx", "Account")</li>
+
+                        }
+                    }
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+
+
+
+
+    @*侧边栏*@
+
+
+
+    @RenderSection("shouoyedatu", false)
+    <article>
+        @RenderBody()
+        @RenderSection("articleBiaoq", false)
+
+
+        <div class="sidebar">
+            <div class="about">
+                <div class="avatar">
+                    <a href="@Url.Action("MyInfo", "Home")"><img src="@Url.Content("~/images/avatar.jpg")" alt="" /></a>
+                </div>
+                <p class="abname">忘忧小组</p>
+                <div class="abtext">忘忧小组，一个乐观而又积极向上的小组</div>
+            </div>
+
+
+
+            <div class="search">
+                @*   <form action="/e/search/index.php" method="post" name="searchform" id="searchform">*@
+                @using (Html.BeginForm())
+                {
+
+                    @*@Html.EditorFor(model =>Model.sousu.wenzhangBiaoTI ,"keyboard", new { placeholder = "请输入关键字", @class = "input_text", style = "width:213px;color: rgb(153, 153, 153);" })
+
+                    <input name="Submit" class="input_submit" value="搜索" type="submit">*@
+
+                }
+
+
+            </div>
+            <div class="cloud">
+                <h2 class="hometitle">标签云</h2>
+                <ul>
+                    <a href="/">王者荣耀</a>
+
+                    @foreach (var item in Model.WanZhangType)
+                    {
+                        <a href="/">@item.WenZhangTypeNmae</a>
+
+                        Html.ActionLink(item.WenZhangTypeNmae, "", "");
+
+                    }
+
+
+                </ul>
+            </div>
+            <div class="paihang">
+                <h2 class="hometitle">最新文章</h2>
+                <ul>
+                    @foreach (var item in Model.WenZhangjx)
+                    {
+
+                        <li>
+                            <b><a href="@Url.Action("info", "info",new { ID = item.wenzhangID })">@item.wenzhangBiaoTI</a></b>
+                            <p>
+                                <i>
+                                    <a href="@Url.Action("info", "info",new { ID = item.wenzhangID })">
+                                        <img src="~/@item.wenzhangImg">
+                                    </a>
+                                </i>@item.wenzhangContent
+                            </p>
+                        </li>
+
+                    }
+                </ul>
+
+            </div>
+            <div class="paihang">
+                <h2 class="hometitle">精选推荐</h2>
+                <ul>
+                    @foreach (var item in Model.WenZhangjx)
+                    {
+
+
+                        <li>
+                            <a href="@Url.Action("info", "info",new { ID = item.wenzhangID })">
+                                <b><a href="@Url.Action("info", "info",new { ID = item.wenzhangID })">@item.wenzhangBiaoTI</a></b>
+                                <p>
+                                    <i>
+                                        <a href="@Url.Action("info", "info",new { ID = item.wenzhangID })">
+                                            <img src="~/@item.wenzhangImg">
+                                        </a>
+                                    </i>@item.wenzhangContent
+                                </p>
+                            </a>
+                        </li>
+
+                    }
+
+
+
+                </ul>
+            </div>
+
+            <div class="links">
+                <h2 class="hometitle">友情链接</h2>
+                <ul>
+                    <li><a href="#" title="忘忧博客">忘忧博客</a></li>
+                    <li><a href="#" title="忘忧博客">忘忧博客</a></li>
+                    <li><a href="#" title="忘忧博客">忘忧博客</a></li>
+                </ul>
+            </div>
+            <!--    <div class="weixin">
+              <h2 class="hometitle">官方微信</h2>
+              <ul>
+                <img src="images/wx.jpg">
+              </ul>
+            </div>-->
+        </div>
+
+
+
+
+
+    </article>
+
+
+
+    <div class="blank"></div>
+    <footer>
+        <p><a href="/">忘忧博客</a> <a href="/">永州职业技术学院</a></p>
+    </footer>
+    @*<script src="~/Scripts/js/nav.js"></script>*@
+</body>
+</html>

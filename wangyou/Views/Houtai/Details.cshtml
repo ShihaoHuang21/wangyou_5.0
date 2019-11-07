@@ -1,0 +1,33 @@
+﻿@model wangyou.Models.bk_users
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/bootstrap.min.js"></script>
+
+<table class="table table-striped table-hover table-bordered text-center">
+    <tr>
+        <td>用户编号</td>
+        <td>  @Html.DisplayFor(model => model.userid)</td>
+    </tr>
+    <tr>
+        <td>用户姓名</td>
+        <td>  @Html.DisplayFor(model => model.u_name)</td>
+    </tr>
+    <tr>
+        <td>用户密码</td>
+        <td>  @Html.DisplayFor(model => model.u_pwd)</td>
+    </tr>
+    <tr>
+        <td>用户邮箱</td>
+        <td>  @Html.DisplayFor(model => model.u_email)</td>
+    </tr>
+
+</table>
+<p>
+    @Html.ActionLink("返回", "kuang")
+</p>
+

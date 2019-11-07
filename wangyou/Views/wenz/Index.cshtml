@@ -1,0 +1,65 @@
+﻿@model IEnumerable<wangyou.Models.WenZhang>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Content/bootstrap.min.js"></script>
+<
+
+<table class="table table-striped table-hover table-bordered text-center">
+    <tr class="thead-light">
+        <th style="text-align: center;">
+            文章编号
+        </th>
+        <th style="text-align: center;">
+            文章标题
+        </th>
+        <th style="text-align: center;">
+            文章内容
+        </th>
+        <th style="text-align: center;">
+            文章类别
+        </th>
+        <th style="text-align: center;">
+            发表时间
+        </th>
+        <th style="text-align: center;">
+            操作
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.wenzhangID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.wenzhangBiaoTI)
+            </td>
+            <td style="width:300px;">
+                <div style="width:300px;height:38px;overflow:hidden;  /*超过5行的文章隐藏*/
+
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient: vertical;">@Html.DisplayFor(modelItem => item.wenzhangContent)</div>
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.WanZhangType.WenZhangTypeNmae)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wenzhangDateTime)
+        </td>
+        <td>
+            @Html.ActionLink("详情", "Details", new { id = item.wenzhangID }) |
+            @Html.ActionLink("删除", "Delete", new { id = item.wenzhangID })
+        </td>
+    </tr>
+}
+
+</table>

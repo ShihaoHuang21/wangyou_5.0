@@ -1,0 +1,115 @@
+﻿@model wangyou.Models.bk_users
+
+@{
+    /**/
+
+    ViewBag.Title = "Create";
+}
+<link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/css/base.css" rel="stylesheet" />
+<link href="~/Content/css/index.css" rel="stylesheet" />
+<link href="~/Content/css/m.css" rel="stylesheet" />
+@*<div>
+        @Html.ActionLink("Back to List", "Index", "Account")
+    </div>*@
+
+
+<header>
+    <div class="tophead">
+        <div class="logo">忘忧<a href="/">博客</a></div>
+        <div id="mnav">
+            <h2><span class="navicon"></span></h2>
+            <ul>
+                <li>@Html.ActionLink("首页", "index", "Home")</li>
+                <li>@Html.ActionLink("每日分享", "meiri", "info")</li>
+                <li>@Html.ActionLink("相册", "xiangce", "info")</li>
+                <li>@Html.ActionLink("发布文章", "edit", "info")</li>
+                <li>@Html.ActionLink("登录", "Login", "Account")</li>
+                <li><a href="about.html">关于我</a></li>
+
+            </ul>
+        </div>
+        <nav class="topnav" id="topnav">
+            <ul>
+                <li>@Html.ActionLink("首页", "index", "Home")</li>
+                <li>@Html.ActionLink("每日分享", "meiri", "info")</li>
+                <li>@Html.ActionLink("相册", "xiangce", "info")</li>
+                <li>@Html.ActionLink("发布文章", "edit", "info")</li>
+                <li>@Html.ActionLink("登录", "Login", "Account")</li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<h2 class="text-center  ">用户注册</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    //111
+    <form>
+
+        <div class=" col-md-12 column">
+            <table class="table  col-md-4 column">
+                <tr class="text-center">
+                    <td class="col-md-4 column"></td>
+                    <td class="col-md-4 column">
+                        用户姓名：
+                        @Html.EditorFor(model => model.u_name)
+                    </td>
+                    <td class="col-md-4 column text-left">@Html.ValidationMessageFor(model => model.u_name)</td>
+                </tr>
+
+                <tr class="text-center">
+                    <td class="col-md-4 column"></td>
+                    <td class="col-md-4 column">
+                        用户密码：
+                        @Html.EditorFor(model => model.u_pwd)
+                    </td>
+                    <td class="col-md-4 column text-left">@Html.ValidationMessageFor(model => model.u_pwd)</td>
+                </tr>
+
+                <tr class="text-center">
+                    <td class="col-md-4 column"></td>
+                    <td class="col-md-4 column">
+                        用户邮箱：
+                        @Html.EditorFor(model => model.u_email)
+                    </td>
+                    <td class="col-md-4 column text-left ">@Html.ValidationMessageFor(model => model.u_email)</td>
+                </tr>
+
+                <tr class="text-center">
+                    <td class="col-md-4 column"></td>
+                    <td class="col-md-4 column">
+                        登录时间：
+                        @Html.EditorFor(model => model.logintime)
+                    </td>
+                    <td class="col-md-4 column text-left ">@Html.ValidationMessageFor(model => model.logintime)</td>
+                </tr>
+
+                <tr class="text-center">
+                    <td class="col-md-4 column"></td>
+                    <td class="col-md-2 column text-center ">
+                        <button type="submit" class="btn btn-default btn-success btn-block  " value="注册">注册</button>
+                    </td>
+                    <td class="col-md-4 column"></td>
+                </tr>
+
+                <tr class="text-center">
+                    <td class="col-md-4 column"></td>
+                    <td class="col-md-2 column text-center ">
+                        @Html.ActionLink("返回登录界面", "Login", "Account")
+                    </td>
+                    <td class="col-md-4 column"></td>
+                </tr>
+
+            </table>
+        </div>
+
+
+
+    </form>
+
+    //111
+}
